@@ -1,6 +1,6 @@
 # Advent of Code 2023
 
-My submissions for the [Advent of Code 2023](https://adventofcode.com/2023).
+My submissions for the [Advent of Code 2023](https://adventofcode.com/2023). I will be primarily using JS for these problems.
 
 ## Requirements
 
