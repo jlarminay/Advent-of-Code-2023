@@ -1,0 +1,11 @@
+{
+  "name": "advent-of-code-2023",
+  "type": "module",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "dependencies": {
+    "prettier": "^3.0.2",
+    "shelljs": "^0.8.5"
+  }
+}
