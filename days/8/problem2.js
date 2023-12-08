@@ -2,7 +2,13 @@ import fs from 'fs';
 
 // ---------- ---------- ----------
 // functions start
-
+function gcd(a, b) {
+  if (b === 0) return a;
+  return gcd(b, a % b);
+}
+function lcm(a, b) {
+  return (a * b) / gcd(a, b);
+}
 // functions end
 // ---------- ---------- ----------
 
@@ -17,6 +23,7 @@ allInputs = allInputs.split('\n');
 let instructions = allInputs[0].replace('\r', '').split('');
 let steps = 0;
 
+let allLocationsAtEnd = false;
 let currentLocations = [];
 
 // get all nodes into object
@@ -39,7 +46,6 @@ for (let i = 2; i < allInputs.length; i++) {
 }
 
 let lengths = Array(currentLocations.length).fill(0);
-console.log('currentLocations', currentLocations);
 
 // find length for each starting position
 for (let i = 0; i < currentLocations.length; i++) {
@@ -51,7 +57,7 @@ for (let i = 0; i < currentLocations.length; i++) {
     let currentNode = nodes[current];
 
     // do instruction
-    if (instructions[steps % instructions.length] === 'R') {
+    if (instructions[lengths[i] % instructions.length] === 'R') {
       // console.log('R', currentNode.right);
       current = currentNode.right;
     } else {
@@ -61,59 +67,18 @@ for (let i = 0; i < currentLocations.length; i++) {
 
     // increment length
     lengths[i]++;
-    if (lengths[i] % 100000000 === 0) console.log('lengths', lengths[i]);
   }
-
-  console.log('length', lengths);
 }
 
-// // do instructions until reach end
-// while (allLocationsAtEnd === false) {
-//   // get next instruction
-//   let nextInstruction = instructions[steps % instructions.length];
+// find lcm of first 2 elements
+let results = lcm(lengths[0], lengths[1]);
+// find lcm of all elements
+for (let i = 2; i < lengths.length; i++) {
+  results = lcm(results, lengths[i]);
+}
 
-//   // console.log();
-
-//   // apply instruction to each current location
-//   for (let i = 0; i < currentLocations.length; i++) {
-//     // get current node
-//     let currentNode = nodes[currentLocations[i]];
-//     // console.log('currentNode', currentNode);
-
-//     // apply instruction to node
-//     if (nextInstruction === 'R') {
-//       // console.log('R', currentNode.right);
-//       currentLocations[i] = currentNode.right;
-//     } else {
-//       // console.log('L', currentNode.left);
-//       currentLocations[i] = currentNode.left;
-//     }
-//   }
-
-//   // check if all locations are at end
-//   let currentEndings = 0;
-//   for (let i = 0; i < currentLocations.length; i++) {
-//     if (currentLocations[i].endsWith('Z')) {
-//       currentEndings++;
-//     }
-//   }
-
-//   // end if all locations are at end
-//   allLocationsAtEnd = false;
-//   if (currentEndings === currentLocations.length) {
-//     console.log(currentLocations);
-//     allLocationsAtEnd = true;
-//   }
-
-//   // increment steps
-//   steps++;
-//   // console.log(currentLocations);
-//   if (steps % 10000000 === 0) console.log('steps', steps);
-//   // console.log('steps', steps);
-// }
-
-// print total steps
-console.log(steps);
+console.log(lengths);
+console.log(results);
 
 // log timer
 console.timeEnd('timer');
