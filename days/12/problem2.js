@@ -15,6 +15,10 @@ let totalPermutationSum = 0;
 // go though each permutation and find it matches
 // if matches, add to count
 
+// find for length 1, then try for length 2, then 3
+// use 1,2,3 to find pattern for 4 and 5
+// add 5 total permutations to count
+
 for (let i = 0; i < allInputs.length; i++) {
   // skip if input empty
   if (allInputs[i] === '') continue;
